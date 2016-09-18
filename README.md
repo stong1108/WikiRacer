@@ -11,7 +11,8 @@ WikiRacer takes a breadth-first search (BFS) approach to finding possible paths.
 The `wikiracer.py` script takes a command lind argument in the form of a JSON object. The JSON object must have a `"start"` name with a string value of the starting Wikipedia article and an `"end"` name with a string value of the ending Wikipedia article.
 
 ```
-python wikiracer.py '{"start": "https://en.wikipedia.org/wiki/Malaria", "end": "https://en.wikipedia.org/wiki/Geophysics"}'```
+python wikiracer.py '{"start": "https://en.wikipedia.org/wiki/Malaria", "end": "https://en.wikipedia.org/wiki/Geophysics"}
+```
 
 The script checks that `"start"` and `"end"` links are valid for performing a shortest path search. Valid means that:
 + `"start"` and `"end"` are Wikipedia pages
