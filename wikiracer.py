@@ -78,7 +78,7 @@ def redirected(end):
     base_url = end[:end.find('/wiki/') + len('/wiki/')]
     return set([end, base_url + title])
 
-def result(path):
+def result(start, end, path):
     '''
     Returns json object of shortest path result.
     '''
@@ -89,24 +89,27 @@ def result(path):
     d = {"start": start, "end": end, "path": result}
     return json.dumps(d, indent=4)
 
-if __name__ == '__main__':
-    # Start timer
-    starttime = time.time()
-
-    # Get start & end articles
-    parser = argparse.ArgumentParser(description='WikiRacer for finding the shortest path between two Wikipedia articles')
-    parser.add_argument('input_json', help='JSON object with "start" & "end" name/value pairs of Wikipedia links')
-    args = parser.parse_args()
+def main(args):
+    '''
+    Executes the WikiRacer for args (input arguments).
+    '''
     input_json = args.input_json
     data = json.loads(args.input_json)
     start = data["start"]
     end = data["end"]
-
-    # Find shortest path if start & end are valid
     if check_pages(start, end):
         path = find_shortest_path(start, redirected(end))
-        json_result = result(path)
-        print json_result
-        endtime = time.time()
-        totaltime = endtime - starttime
-        print 'Time: {}m {:.3f}s'.format(int(totaltime)/60, totaltime%60)
+        json_result = result(start, end, path)
+        return json_result
+
+if __name__ == '__main__':
+    starttime = time.time()
+
+    parser = argparse.ArgumentParser(description='WikiRacer for finding the shortest path between two Wikipedia articles')
+    parser.add_argument('input_json', help='JSON object with "start" & "end" name/value pairs of Wikipedia links')
+    args = parser.parse_args()
+
+    print main(args)
+    endtime = time.time()
+    totaltime = endtime - starttime
+    print 'Time: {}m {:.3f}s'.format(int(totaltime)/60, totaltime%60)
