@@ -1,12 +1,18 @@
 ## WikiRacer
 WikiRacer is a web crawler that tries to find the shortest path between two Wikipedia articles.
+
 ***
+
 ### Requirements
 The script was written in Python 2.7 and uses the `json`, `argparse`, `requests`, `BeautifulSoup`, `collections`, and `time` packages.
+
 ***
+
 ### Methods
 WikiRacer takes a breadth-first search (BFS) approach to finding possible paths. WikiRacer explores paths by going down one level at a time: it first looks at all children links from the starting page, then looks at each child's links (and so forth). This approach requires a lot of memory & processing since the number of links to check grows substantially, but it finds the shortest path (Dijkstra's algorithm for an unweighted graph).
+
 ***
+
 ### Instructions for running
 The `wikiracer.py` script takes a command lind argument in the form of a JSON object. The JSON object must have a `"start"` name with a string value of the starting Wikipedia article and an `"end"` name with a string value of the ending Wikipedia article.
 
@@ -20,10 +26,19 @@ The script checks that `"start"` and `"end"` links are valid for performing a sh
 + `"start"` is not a "dead-end" page that contains no links to other Wikipedia articles.
   + The script should return a "No path" result anyways, but this check at least informs the user why.
 + `"end"` is not an "orphan" page with no links from other Wikipedia articles. Here, we determine that a page is an "orphan" if it is tagged with Wikipedia's "orphan" banner.
-***
-### Future Improvements
 
 ***
+
+### Future Improvements
+This WikiRacer was developed for use on a personal machine.  Further optimizations could be made for quicker runtime, including:
++ implementing a threaded recursive crawler to explore pages
++ pre-processing a [Wiki Dump](https://dumps.wikimedia.org/backup-index.html)
+  + implementing the arc-flags algorithm to avoid exploring unnecessary paths
+  + pre-computing all shortest paths between all possible pairs of articles (very computationally expensive)
++ using NLP techniques to re-order a page's links to visit based on semantic networks (to try to mimic human intuition)
+
+***
+
 ### Example results and times
 Times may vary due to internet connection.
 
@@ -53,5 +68,5 @@ Time: 0m 5.956s
         "https://en.wikipedia.org/wiki/Geophysics"
     ]
 }
-Time: 3m 26.434s
+Time: 1m 49.279s
 ```
