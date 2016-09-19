@@ -51,7 +51,7 @@ def check_pages(start, end):
             languages.append(page[(ind-2): ind])
             requests.get(page)
         except:
-            print '{} page does not appear to be a valid Wikipedia page.'.format(page.capitalize())
+            print '{} does not appear to be a valid Wikipedia page.'.format(page)
             return False
 
     if len(set(languages)) > 1:
@@ -74,7 +74,7 @@ def redirected(end):
     '''
     end_soup = BeautifulSoup(requests.get(end).content, 'html.parser')
     title = end_soup.find('h1').text
-    title.replace(' ', '_', len(title))
+    title = title.replace(' ', '_', len(title))
     base_url = end[:end.find('/wiki/') + len('/wiki/')]
     return base_url + title
 
