@@ -21,7 +21,7 @@ def find_shortest_path(start, end):
         links = get_links(page)
 
         for link in links:
-            if link == end:
+            if link in end:
                 return path[page] + [link]
             if (link not in path) and (link != page):
                 path[link] = path[page] + [link]
@@ -76,7 +76,7 @@ def redirected(end):
     title = end_soup.find('h1').text
     title = title.replace(' ', '_', len(title))
     base_url = end[:end.find('/wiki/') + len('/wiki/')]
-    return base_url + title
+    return set([end, base_url + title])
 
 def result(path):
     '''
