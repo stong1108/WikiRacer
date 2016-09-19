@@ -30,7 +30,7 @@ The script checks that `"start"` and `"end"` links are valid for performing a sh
 ***
 
 ### Future Improvements
-This WikiRacer was developed for use on a personal machine.  Further optimizations could be made for quicker runtime, including:
+This WikiRacer was developed for use on a personal laptop.  Further optimizations could be made for quicker runtime, including:
 + implementing a threaded recursive crawler to explore pages
 + pre-processing a [Wiki Dump](https://dumps.wikimedia.org/backup-index.html)
   + implementing the arc-flags algorithm to avoid exploring unnecessary paths
