@@ -20,17 +20,20 @@ The `wikiracer.py` script takes a command lind argument in the form of a JSON ob
 python wikiracer.py '{"start": "https://en.wikipedia.org/wiki/Malaria", "end": "https://en.wikipedia.org/wiki/Geophysics"}
 ```
 
+#### Error Handling
 The script checks that `"start"` and `"end"` links are valid for performing a shortest path search. Valid means that:
-+ `"start"` and `"end"` are Wikipedia pages
++ `"start"` and `"end"` are existing Wikipedia pages
 + `"start"` and `"end"` are in the same language (there is no path between https://en.wikipedia.org/wiki/... and https://de.wikipedia.org/wiki/...)
 + `"start"` is not a "dead-end" page that contains no links to other Wikipedia articles.
   + The script should return a "No path" result anyways, but this check at least informs the user why.
 + `"end"` is not an "orphan" page with no links from other Wikipedia articles. Here, we determine that a page is an "orphan" if it is tagged with Wikipedia's "orphan" banner.
 
+If `"end"` redirects to another page, the redirected page becomes WikiRacer's target destination. For example, for an `"end"` page of `"https://en.wikipedia.org/Bolshevik_Revolution"` WikiRacer will search for `"https://en.wikipedia.org/October_Revolution"` instead.
+
 ***
 
 ### Future Improvements
-This WikiRacer was developed for use on a personal laptop.  Further optimizations could be made for quicker runtime, including:
+WikiRacer was developed for use on a personal laptop.  Further optimizations could be made for quicker runtime, including:
 + implementing a threaded recursive crawler to explore pages
 + pre-processing a [Wiki Dump](https://dumps.wikimedia.org/backup-index.html)
   + implementing the arc-flags algorithm to avoid exploring unnecessary paths
