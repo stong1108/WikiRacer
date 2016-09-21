@@ -17,15 +17,23 @@ def find_shortest_path(start, end):
     Q = deque([start])
 
     while len(Q) != 0:
+        # look at next page in queue of pages to visit, get wikilinks on that page
         page = Q.popleft()
         links = get_links(page)
 
+        # look at each link on the page
         for link in links:
+
+            # if link is our destination, we're done!
             if link in end:
                 return path[page] + [link]
+
+            # if not, check if we already have a record of the shortest path from the start page to this link- if we don't, we need to record the path and add the link to our queue of pages to explore
             if (link not in path) and (link != page):
                 path[link] = path[page] + [link]
                 Q.append(link)
+
+    # if we've exhausted all possible pages to explore in our queue without getting to the destination
     return None
 
 def get_links(page):
@@ -48,7 +56,7 @@ def check_pages(start, end):
     for page in [start, end]:
         try:
             ind = page.find('.wikipedia.org/wiki/')
-            languages.append(page[(ind-2): ind])
+            languages.append(page[(ind-2):ind])
             requests.get(page)
         except:
             print '{} does not appear to be a valid Wikipedia page.'.format(page)
@@ -110,6 +118,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     print main(args)
+
     endtime = time.time()
     totaltime = endtime - starttime
     print 'Time: {}m {:.3f}s'.format(int(totaltime)/60, totaltime%60)
